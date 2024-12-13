@@ -5,7 +5,7 @@ import Link from "next/link";
 export const Footer = () => {
   return (
     <footer>
-      <div className="max-w-screen-2xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
+      <div className="max-w-screen-2xl py-16 mx-auto px-6 md:px-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
             <Link href={"/"} className="font-mollie text-4xl">

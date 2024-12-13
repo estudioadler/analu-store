@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Poppins as FontSans } from "next/font/google";
+import { Manrope as FontSans } from "next/font/google";
 import localFont from "next/font/local";
 import { cn } from "@/lib/utils";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import SessionWrapper from "@/components/SessionWrapper";
+import { CartProvider } from "@/context/CartContext";
+import { Toaster } from "@/components/ui/sonner"
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -29,17 +30,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          `${mollie.variable} ${fontSans.variable}`
-        )}
-      >
-        <Header />
-        <main>{children}</main>
-        <Footer />
-      </body>
-    </html>
+    <SessionWrapper>
+      <html lang="en">
+        <body
+          className={cn(
+            "min-h-screen bg-background font-sans antialiased",
+            `${mollie.variable} ${fontSans.variable}`
+          )}
+        >
+          <CartProvider>
+            {children}
+          </CartProvider>
+          <Toaster />
+        </body>
+      </html>
+    </SessionWrapper>
   );
 }
