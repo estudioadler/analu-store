@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import * as z from "zod";
 
-export const loginSchema = z.object({
+const formSchema = z.object({
   email: z.string().email({
     message: "Por favor, insira um email válido.",
   }),
@@ -27,20 +27,19 @@ export const loginSchema = z.object({
   }),
 });
 
-export type LoginFormValues = z.infer<typeof loginSchema>;
+export type LoginFormValues = z.infer<typeof formSchema>;
 
 export default function LoginPage() {
   const form = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  async function onSubmit(data: LoginFormValues) {
-    // Here you would typically send the data to your server
-    console.log(data);
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
   }
 
   return (
