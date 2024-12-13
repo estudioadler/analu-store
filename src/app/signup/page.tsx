@@ -18,17 +18,17 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import * as z from "zod";
 
-export const loginSchema = z.object({
+const formSchema = z.object({
   email: z.string().email({
     message: "Por favor, insira um email válido.",
   }),
 });
 
-export type LoginFormValues = z.infer<typeof loginSchema>;
+export type LoginFormValues = z.infer<typeof formSchema>;
 
 export default function LoginPage() {
   const form = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
     },
