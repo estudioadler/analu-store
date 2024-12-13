@@ -4,7 +4,7 @@ import { CartItem } from "@/lib/types";
 import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { Delete01Icon, MinusPlus01Icon, PlusMinus01Icon } from "hugeicons-react";
+import { Delete01Icon, MinusSignIcon, PlusSignIcon } from "hugeicons-react";
 
 interface CartItemProps {
   item: CartItem;
@@ -49,7 +49,7 @@ export function CartItemCard({ item }: CartItemProps) {
             className="h-8 w-8"
             onClick={() => updateQuantity(item.quantity - 1)}
           >
-            <MinusPlus01Icon className="h-4 w-4" />
+            <MinusSignIcon className="h-4 w-4" />
           </Button>
           <span className="w-8 text-center">{item.quantity}</span>
           <Button
@@ -58,7 +58,7 @@ export function CartItemCard({ item }: CartItemProps) {
             className="h-8 w-8"
             onClick={() => updateQuantity(item.quantity + 1)}
           >
-            <PlusMinus01Icon className="h-4 w-4" />
+            <PlusSignIcon className="h-4 w-4" />
           </Button>
         </div>
         <Button

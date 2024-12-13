@@ -45,7 +45,7 @@ export function Header() {
             <Search01Icon strokeWidth={1.5} className="size-5" />
           </button>
             
-          <CartSheet />
+          <CartSheet items={[]} />
           {openSearch && <SearchBar on={handleOpenSearch} />}
         </div>
       </div>

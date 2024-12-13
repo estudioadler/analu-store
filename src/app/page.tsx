@@ -14,7 +14,9 @@ export default async function Home() {
       <Header />
       <Hero />
       <Banner />
-      <ProductCarousel products={data.products} title="Todos os Produtos" />
+      <section  className="container mx-auto px-6 py-8">
+        <ProductCarousel products={data.products} title="Todos os Produtos" />
+      </section>
       <Testmonial />
       <SubscribeNews />
       <SubscribeToast />
