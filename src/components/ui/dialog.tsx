@@ -2,9 +2,8 @@
 
 import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
-import { Cross2Icon } from "@radix-ui/react-icons"
-
 import { cn } from "@/lib/utils"
+import { Cross2Icon } from "@radix-ui/react-icons"
 
 const Dialog = DialogPrimitive.Root
 
@@ -59,7 +58,7 @@ const DialogHeader = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      "flex flex-col space-y-1.5 text-left",
+      "flex flex-col space-y-1.5 text-center sm:text-left",
       className
     )}
     {...props}
