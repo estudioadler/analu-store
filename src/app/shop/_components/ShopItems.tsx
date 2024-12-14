@@ -1,13 +1,27 @@
+// app/shop/_components/ShopItems.tsx
 import data from "@/lib/data"
 import { ProductCard } from '@/components/ProductCard'
 
-export function ShopItems({ searchParams }: { searchParams?: { filter?: string } }) {
-  const filter = searchParams?.filter?.toLowerCase() || ''
+export function ShopItems({ 
+  searchParams 
+}: { 
+  searchParams?: { 
+    name?: string; 
+    category?: string; 
+    minPrice?: string; 
+    maxPrice?: string; 
+  } 
+}) {
+  const name = searchParams?.name?.toLowerCase() || ''
+  const category = searchParams?.category?.toLowerCase() || ''
+  const minPrice = searchParams?.minPrice ? Number(searchParams.minPrice) : 0
+  const maxPrice = searchParams?.maxPrice ? Number(searchParams.maxPrice) : Infinity
 
-  const filteredItems = data.products.filter(item =>
-    item.name.toLowerCase().includes(filter) ||
-    item.description.toLowerCase().includes(filter) ||
-    item.category.toLowerCase().includes(filter)
+  const filteredItems = data.products.filter(item => 
+    (name === '' || item.name.toLowerCase().includes(name)) &&
+    (category === '' || item.category.toLowerCase().includes(category)) &&
+    item.price >= minPrice &&
+    item.price <= maxPrice
   )
 
   return (
@@ -18,4 +32,3 @@ export function ShopItems({ searchParams }: { searchParams?: { filter?: string }
     </div>
   )
 }
-
