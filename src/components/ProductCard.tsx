@@ -22,7 +22,7 @@ export function ProductCard({ product }: ProductCardProps) {
           src={product.image}
           alt={product.name}
           fill
-          className="object-cover transition-transform group-hover:scale-105"
+          className="object-cover transition-transform group-hover:scale-105 duration-300 ease-in-out"
           sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, 50vw"
         />
       </div>

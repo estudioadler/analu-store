@@ -8,10 +8,19 @@ import { SearchBar } from "./SearchBar";
 import { Search01Icon } from "hugeicons-react";
 import { forwardRef, useState } from "react";
 import { CartSheet } from "./CartSheet";
-
+import { useSession } from "next-auth/react";
+import { UserMenuDropdown } from "./UserMenuDropdown"
+import { signOut } from "next-auth/react";
 
 export function Header() {
   const [openSearch, setOpenSearch] = useState(false);
+  const { data: session } = useSession();
+
+  const handleLogOut = async () => {
+    await signOut({
+      redirectTo: "/",
+    });
+  };
 
   const handleOpenSearch = () => {
     setOpenSearch(!openSearch);
@@ -27,6 +36,9 @@ export function Header() {
         </Link>
       </div>
       <div className="flex items-center gap-4">
+        {session ? (
+         <UserMenuDropdown userName={session.user?.email ?? ""} logOut={handleLogOut} />
+        ) : (
         <div className="items-center flex">
           <Link href={"/login"}>
           <Button variant={"ghost"} size={"lg"} className="hover:bg-transparent text-muted-foreground hover:text-foreground transition-colors ">
@@ -39,6 +51,8 @@ export function Header() {
           </Button>
           </Link>
         </div>
+        )}
+        
         <div className="w-px h-8 bg-border mx-4"/>
         <div className="flex items-center gap-6">
           <button onClick={handleOpenSearch}>
