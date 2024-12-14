@@ -9,13 +9,15 @@ interface ShopPageProps {
   searchParams?: FilterParams
 }
 
-export default async function ShopPage({ searchParams }: ShopPageProps) {
+export default function ShopPage({ searchParams }: ShopPageProps) {
   return (
     <>
       <Header />
       <div className="container mx-auto px-6 py-8">
         <h1 className="text-3xl font-bold mb-8">Todos os Produtos</h1>
-        <ShopHeader />
+        <Suspense fallback={<div>Carregando cabeçalho...</div>}>
+          <ShopHeader />
+        </Suspense>
         <Suspense fallback={<div>Carregando...</div>}>
           <ShopItems searchParams={searchParams} />
         </Suspense>
@@ -24,3 +26,5 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     </>
   )
 }
+
+
