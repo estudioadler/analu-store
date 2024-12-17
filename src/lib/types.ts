@@ -2,12 +2,11 @@ export interface Product {
   id: string;
   name: string;
   slug: string;
-  size?: string;
-  quantity?: number;
+  size?: string; // Make size optional or use undefined instead of null
+  quantity?: number; // Make quantity optional
   category: string;
   image: string;
-  galleryImages: string[];
-  price: number;
+  price: number; // Ensure this matches your Prisma/database type
   description: string;
   rating: number;
 }

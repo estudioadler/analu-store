@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import SessionWrapper from "@/components/SessionWrapper";
 import { CartProvider } from "@/context/CartContext";
 import { Toaster } from "@/components/ui/sonner"
+import AuthProvider from "@/providers/auth";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -38,9 +39,11 @@ export default function RootLayout({
             `${mollie.variable} ${fontSans.variable}`
           )}
         >
-          <CartProvider>
-            {children}
-          </CartProvider>
+          <AuthProvider>
+            <CartProvider>
+              {children}
+            </CartProvider>
+          </AuthProvider>
           <Toaster />
         </body>
       </html>
