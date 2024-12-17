@@ -10,13 +10,17 @@ import {
 } from "@/components/ui/carousel";
 import { ProductCard } from "./ProductCard";
 import { Product } from "@/lib/types";
+import Autoplay from "embla-carousel-autoplay";
 
 interface ProductCarouselProps {
-  title: string;
+  title?: string;
   products: Product[];
 }
 
 export function ProductCarousel({ products, title }: ProductCarouselProps) {
+  const plugin = React.useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: true })
+  );
   return (
     <section>
       <h2 className="text-3xl font-medium max-w-xs tracking-tighter py-12">
@@ -25,8 +29,10 @@ export function ProductCarousel({ products, title }: ProductCarouselProps) {
 
       <Carousel
         orientation="horizontal"
+        plugins={[plugin.current]}
         opts={{
           align: "start",
+          loop: true,
         }}
         className="w-full mx-auto"
       >

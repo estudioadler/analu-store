@@ -1,31 +1,41 @@
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu"
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { useSession } from "next-auth/react";
+
 interface IUserMenuDropdownProps {
-    userName: string;
-    logOut: () => void
+  userName: string;
+  logOut: () => void;
 }
-export const UserMenuDropdown = ({ userName, logOut }: IUserMenuDropdownProps) => {
-    
-    return (
-        <DropdownMenu>
+export const UserMenuDropdown = ({
+  userName,
+  logOut,
+}: IUserMenuDropdownProps) => {
+  const { data: session } = useSession();
+  return (
+    <DropdownMenu>
       <DropdownMenuTrigger asChild className="">
         <Button variant="ghost" className="hover:bg-transparent">
-            {userName}
-            <ChevronDownIcon className="ml-2" />
+          {userName}
+          <ChevronDownIcon className="ml-2" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel className="flex flex-col">
+          <span>{session?.user?.name}</span>
+          <span className="text-xs text-muted-foreground">
+            {session?.user?.email}
+          </span>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
@@ -33,15 +43,15 @@ export const UserMenuDropdown = ({ userName, logOut }: IUserMenuDropdownProps) =
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            Favoritos
+            Meus Favoritos
             <DropdownMenuShortcut>⌘F</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuItem onClick={logOut}>
-          Log out
+          Sair
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-    )
-}
+  );
+};

@@ -19,7 +19,7 @@ interface CartProps {
 
 export function CartSheet({ items }: CartProps) {
   const { state } = useCart();
-  const total = calculateCartTotal(state.items); // Use state.items aqui
+  const total = calculateCartTotal(state.items);
 
   return (
     <Sheet>
@@ -33,39 +33,43 @@ export function CartSheet({ items }: CartProps) {
           )}
         </button>
       </SheetTrigger>
-      <SheetContent className="flex flex-col justify-between">
+      <SheetContent className="flex flex-col">
         <SheetHeader>
           <SheetTitle>Shopping Cart</SheetTitle>
         </SheetHeader>
-        <div className="mt-8 space-y-4 h-screen overflow-y-auto">
+        <div className="flex-grow overflow-y-scroll scroll-m-0">
           {state.items.length === 0 ? (
-            <div className="flex items-center justify-center h-full">
+            <div className="flex flex-col items-center justify-center h-full">
               <p className="text-center text-muted-foreground">
-                Seu carrinho está vazio
+                Seu carrinho está vazio
               </p>
+              <Button className="mt-2">
+                Ir para a loja
+              </Button>
             </div>
           ) : (
             <div className="space-y-4">
-              <div className="space-y-4 h-full overflow-y-auto">
-                {state.items.map((item) => (
-                  <CartItemCard key={item.id} item={item} />
-                ))}
-              </div>
+              {state.items.map((item) => (
+                <CartItemCard key={item.id} item={item} />
+              ))}
             </div>
           )}
         </div>
-        <SheetFooter>
-          <div className="space-y-4">
-            <div className="flex justify-between text-lg font-semibold">
-              <span>Total</span>
-              <span>${total.toFixed(2)}</span>
+        {state.items.length > 0 && (
+          <SheetFooter className="mt-auto pt-4">
+            <div className="space-y-4 w-full">
+              <div className="flex justify-between text-lg font-semibold">
+                <span>Total</span>
+                <span>${total.toFixed(2)}</span>
+              </div>
+              <Button className="w-full" size="lg">
+                Checkout
+              </Button>
             </div>
-            <Button className="w-full" size="lg">
-              Checkout
-            </Button>
-          </div>
-        </SheetFooter>
+          </SheetFooter>
+        )}
       </SheetContent>
     </Sheet>
   );
 }
+
