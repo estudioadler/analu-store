@@ -16,11 +16,13 @@ export async function generateStaticParams() {
   }));
 }
 
+interface ProductDetailPageProps {
+  params: { id: string };
+}
+
 export default async function ProductDetailPage({
   params,
-}: {
-  params: { id: string };
-}) {
+}: ProductDetailPageProps) {
   const { id } = params;
 
   const productData = await prisma.product.findUnique({
