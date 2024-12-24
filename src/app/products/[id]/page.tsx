@@ -21,8 +21,7 @@ export default async function ProductDetailPage({
 }: {
   params: { id: string };
 }) {
-  // Await the params object
-  const { id } = await params;
+  const { id } = params;
 
   const productData = await prisma.product.findUnique({
     where: { slug: id }
@@ -46,3 +45,4 @@ export default async function ProductDetailPage({
     </>
   );
 }
+
