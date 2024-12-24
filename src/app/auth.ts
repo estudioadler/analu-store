@@ -1,9 +1,11 @@
-
-import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import { NextAuthOptions } from "next-auth"
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
 
-export const authOptions: NextAuthOptions = ({
+import { prisma } from "@/lib/prisma"
+
+export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -17,4 +19,25 @@ export const authOptions: NextAuthOptions = ({
       }
     }),
   ],
-})
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      console.log("Sign in callback", { user, account, profile, email, credentials });
+      return true;
+    },
+    async redirect({ url, baseUrl }) {
+      console.log("Redirect callback", { url, baseUrl });
+      return baseUrl;
+    },
+    async session({ session, user, token }) {
+      console.log("Session callback", { session, user, token });
+      return session;
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      console.log("JWT callback", { token, user, account, profile, isNewUser });
+      return token;
+    }
+  },
+  debug: true,
+}
+
+export { authOptions as GET, authOptions as POST }

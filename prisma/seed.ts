@@ -728,35 +728,41 @@ export const products: Product[] = [
 ];
 
 async function main() {
-  console.log("Iniciando seed do banco de dados...");
+  try {
+    console.log("🌱 Iniciando seed do banco de dados...");
+    
+    // Limpar dados existentes
+    console.log("🧹 Limpando dados existentes...");
+    await prisma.product.deleteMany();
+    
+    // Inserir produtos
+    console.log(`💾 Inserindo ${products.length} produtos...`);
+    await prisma.product.createMany({
+      data: products.map(produto => ({
+        id: produto.id,
+        name: produto.name,
+        slug: produto.slug,
+        category: produto.category,
+        image: produto.image,
+        price: produto.price,
+        description: produto.description,
+        rating: produto.rating,
+        size: produto.size,
+        quantity: produto.quantity,
+      }))
+    });
 
-  // Limpar dados existentes (opcional)
-  await prisma.product.deleteMany();
-
-  // Inserir produtos de forma mais eficiente
-  await prisma.product.createMany({
-    data: products.map(produto => ({
-      id: produto.id,
-      name: produto.name,
-      slug: produto.slug,
-      category: produto.category,
-      image: produto.image,
-      price: produto.price,
-      description: produto.description,
-      rating: produto.rating,
-      size: produto.size,
-      quantity: produto.quantity,
-    }))
-  });
-
-  console.log("Seed concluído com sucesso!");
+    console.log("✅ Seed concluído com sucesso!");
+  } catch (error) {
+    console.error("❌ Erro durante o seed:", error);
+    throw error;
+  } finally {
+    await prisma.$disconnect();
+  }
 }
 
 main()
-  .catch((e) => {
-    console.error(e);
+  .catch((error) => {
+    console.error("Fatal error:", error);
     process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
   });

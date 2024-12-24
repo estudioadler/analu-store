@@ -21,7 +21,7 @@ export const SubscribeToast = () => {
   return (
     isVisible && (
     <Dialog>
-      <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 ml-6 bg-secondary p-8 rounded-2xl">
+      <div className="fixed bottom-6 left-6 right-6 md:bottom-8 md:right-8 md:left-auto bg-secondary p-8 rounded-2xl md:rounded-2xl">
         <DialogHeader className="space-y-4 max-w-sm">
           <DialogTitle className="md:text-2xl text-xl font-medium max-w-[600px] tracking-tighter">
             Assine e ganhe 20% de <br /> desconto em seu pedido.
@@ -55,3 +55,4 @@ export const SubscribeToast = () => {
     )
   );
 };
+

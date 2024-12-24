@@ -11,6 +11,7 @@ import {
 import { ProductCard } from "./ProductCard";
 import { Product } from "@/lib/types";
 import Autoplay from "embla-carousel-autoplay";
+import { shuffle } from "lodash"
 
 interface ProductCarouselProps {
   title?: string;
@@ -21,13 +22,14 @@ export function ProductCarousel({ products, title }: ProductCarouselProps) {
   const plugin = React.useRef(
     Autoplay({ delay: 3000, stopOnInteraction: true })
   );
+  const shuffledProducts = React.useMemo(() => shuffle(products), [products]);
   return (
     <section>
       <h2 className="text-3xl font-medium max-w-xs tracking-tighter py-12">
         {title}
       </h2>
-
-      <Carousel
+      <div>
+        <Carousel
         orientation="horizontal"
         plugins={[plugin.current]}
         opts={{
@@ -37,7 +39,7 @@ export function ProductCarousel({ products, title }: ProductCarouselProps) {
         className="w-full mx-auto"
       >
         <CarouselContent>
-          {products.map((product) => (
+          {shuffledProducts.map((product) => (
             <CarouselItem
               key={product.id}
               className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
@@ -48,9 +50,11 @@ export function ProductCarousel({ products, title }: ProductCarouselProps) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
+         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
+      </div>
+      
     </section>
   );
 }

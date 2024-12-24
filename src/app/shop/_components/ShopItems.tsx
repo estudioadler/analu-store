@@ -1,4 +1,4 @@
-import { db } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { ProductGrid } from "./products/ProductGrid";
 import { parseFilterParams, filterProducts } from "../utils/filter-utils";
 import type { FilterParams, Product } from "@/lib/types";
@@ -8,10 +8,12 @@ interface ShopItemsProps {
 }
 
 export async function ShopItems({ searchParams }: ShopItemsProps) {
-  const filters = parseFilterParams(searchParams);
+  // Await the searchParams to access its properties
+  const params = await searchParams;
 
-  // Considere adicionar seleção de campos específicos se não precisar de todos
-  const products = await db.product.findMany({
+  const filters = parseFilterParams(params);
+
+  const products = await prisma.product.findMany({
     select: {
       id: true,
       name: true,
@@ -33,7 +35,6 @@ export async function ShopItems({ searchParams }: ShopItemsProps) {
     price: Number(product.price),
   }));
 
-  // Pode adicionar tratamento de erro caso não haja produtos
   const filteredItems = filterProducts(transformedProducts, filters) || [];
 
   return (

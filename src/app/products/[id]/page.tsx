@@ -1,38 +1,48 @@
-import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import { products as seedData } from '@/../../prisma/seed';
+import { prisma } from "@/lib/prisma";
 import ProductDetailClient from "./ProductDetailClient";
-import { Footer } from "@/components/Footer";
+import { RelatedProducts } from "./RelatedProducts";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { convertPrismaProduct, Product } from "@/lib/types";
 
 export async function generateStaticParams() {
-  return seedData.map((product) => ({
+  const products = await prisma.product.findMany({
+    select: { slug: true }
+  });
+
+  return products.map((product: { slug: string }) => ({
     id: product.slug,
   }));
 }
 
-export default function ProductDetailPage({
+export default async function ProductDetailPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const product = seedData.find((product) => product.slug === params.id);
+  // Await the params object
+  const { id } = await params;
 
-  if (!product) {
+  const productData = await prisma.product.findUnique({
+    where: { slug: id }
+  });
+
+  if (!productData) {
     notFound();
   }
+
+  const product: Product = convertPrismaProduct(productData);
 
   return (
     <>
       <Header />
       <div className="container mx-auto px-6 py-8">
         <h1 className="text-3xl font-bold mb-8">{product.name}</h1>
-        <Suspense fallback={<div>Carregando...</div>}>
-          <ProductDetailClient productId={product.id} />
-        </Suspense>
+        <ProductDetailClient product={product} />
+        <RelatedProducts category={product.category} currentProductId={product.id} />
       </div>
       <Footer />
     </>
   );
 }
-

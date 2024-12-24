@@ -5,8 +5,8 @@ import Image from "next/image";
 
 export default function SubscribeNews() {
   return (
-    <section className="w-full py-12 bg-primary-foreground">
-      <div className="container grid items-center gap-6 lg:grid-cols-2 lg:gap-12">
+    <section className="w-full py-16 bg-primary-foreground">
+      <div className="container px-4 md:px-6 mx-auto grid items-center gap-6 lg:grid-cols-2 lg:gap-12">
         <div className="space-y-4 max-w-sm">
           <h2 className="text-3xl font-medium max-w-[600px] tracking-tighter">
             Ganhe 20% de desconto <br /> em seu pedido hoje.

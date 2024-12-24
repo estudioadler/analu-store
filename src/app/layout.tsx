@@ -32,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <SessionWrapper>
-      <html lang="en">
+      <html lang="pt-br" suppressHydrationWarning >
         <body
           className={cn(
             "min-h-screen bg-background font-sans antialiased",

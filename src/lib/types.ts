@@ -1,20 +1,50 @@
+import { Prisma } from "@prisma/client";
+
 export interface Product {
   id: string;
   name: string;
   slug: string;
-  size?: string; // Make size optional or use undefined instead of null
-  quantity?: number; // Make quantity optional
+  size?: string;
+  quantity?: number;
   category: string;
   image: string;
-  price: number; // Ensure this matches your Prisma/database type
+  price: number;
   description: string;
   rating: number;
 }
 
-export interface CartItem extends Product {
-  quantity: number;
+export function convertPrismaProduct(prismaProduct: Prisma.ProductGetPayload<{}>): Product {
+  return {
+    id: prismaProduct.id,
+    name: prismaProduct.name,
+    slug: prismaProduct.slug,
+    size: prismaProduct.size ?? undefined,
+    quantity: prismaProduct.quantity ?? undefined,
+    category: prismaProduct.category,
+    image: prismaProduct.image,
+    price: Number(prismaProduct.price),
+    description: prismaProduct.description,
+    rating: prismaProduct.rating
+  };
 }
 
+// Restante dos tipos mantidos iguais
+export interface CartItem {
+  id: string;
+  name: string;
+  slug: string;
+  size?: string;
+  quantity: number;
+  category: string;
+  image: string;
+  price: number;
+  description: string;
+  rating: number;
+}
+
+export interface CartItemProduct extends Product {
+  quantity: number;
+}
 export type FavoriteItem = {
   id: string;
   productId: string;
@@ -33,3 +63,5 @@ export interface FilterState {
   minPrice: number
   maxPrice: number
 }
+
+export type CartItemOrProduct = CartItem | CartItemProduct;

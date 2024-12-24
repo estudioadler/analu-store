@@ -1,38 +1,23 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
 import { Product, CartItem } from "@/lib/types";
-import { products as seedData } from '@/../../prisma/seed';
-import { ShoppingBag01Icon, StarIcon } from "hugeicons-react";
+import { ShoppingBag01Icon } from "hugeicons-react";
 import { toast } from "sonner";
-import { ProductCarousel } from "@/components/ProductCarousel";
 
 interface ProductDetailClientProps {
-  productId: string;
+  product: Product;
 }
 
 export default function ProductDetailClient({
-  productId,
+  product
 }: ProductDetailClientProps) {
   const { dispatch } = useCart();
-  const [product, setProduct] = useState<Product | null>(null);
-  const [currentImage, setCurrentImage] = useState("");
+  const [currentImage] = useState(product.image);
   const [selectedQuantity] = useState(1);
-
-  useEffect(() => {
-    const foundProduct = seedData.find(p => p.id === productId);
-    if (foundProduct) {
-      setProduct(foundProduct);
-      setCurrentImage(foundProduct.image);
-    }
-  }, [productId]);
-
-  if (!product) {
-    return <div>Produto não encontrado</div>;
-  }
 
   const handleAddToCart = () => {
     const cartItem: CartItem = {
@@ -41,36 +26,7 @@ export default function ProductDetailClient({
     };
 
     dispatch({ type: "ADD_ITEM", payload: cartItem });
-
     toast.success(`${product.name} adicionado ao carrinho`);
-  };
-
-  const relatedProducts = seedData
-    .filter((p) => p.category === product.category && p.id !== product.id)
-    .slice(0, 11);
-
-  const renderStarRating = () => {
-    const fullStars = Math.floor(product.rating);
-    const hasHalfStar = product.rating % 1 >= 0.5;
-
-    return (
-      <div className="flex items-center">
-        <span className="mr-2">Avaliação:</span>
-        {[...Array(5)].map((_, i) => (
-          <StarIcon
-            key={i}
-            className={`w-5 h-5 ${
-              i < fullStars
-                ? "text-yellow-400"
-                : i === fullStars && hasHalfStar
-                ? "text-yellow-400 half-star"
-                : "text-gray-300"
-            }`}
-          />
-        ))}
-        <span className="ml-2">{product.rating.toFixed(1)}</span>
-      </div>
-    );
   };
 
   return (
@@ -95,8 +51,6 @@ export default function ProductDetailClient({
 
           <p className="mb-4">{product.description}</p>
 
-          {renderStarRating()}
-
           <Button
             onClick={handleAddToCart}
             className="mt-4 w-full"
@@ -107,16 +61,7 @@ export default function ProductDetailClient({
           </Button>
         </div>
       </div>
-
-      {/* Produtos relacionados */}
-      {relatedProducts.length > 0 && (
-        <div className="mt-12">
-          <ProductCarousel 
-            title="Produtos Relacionados" 
-            products={relatedProducts} 
-          />
-        </div>
-      )}
     </div>
   );
 }
+

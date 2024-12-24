@@ -7,21 +7,21 @@ export const Banner = () => {
   const products = [
     {
       id: 1,
-      image: "/image1.png",
+      image: "https://utfs.io/f/5mtAsAQDoNVdSoSLfuBjBTxsbyO2PgYEuwKDoVtCFW0qkfAn",
     },
     {
       id: 2,
-      image: "/image2.png",
+      image: "https://utfs.io/f/5mtAsAQDoNVduYLdvtgvfNh0sc83LFj1PIoDmeqaXTKrgBxW",
     },
     {
       id: 3,
-      image: "/image3.png",
+      image: "https://utfs.io/f/5mtAsAQDoNVdppRtL09wB1DHrkmYyZI9xvtgKo8UzA5XuaS6",
     },
   ];
 
   return (
     <section>
-      <div className="grid grid-cols-3 py-4 gap-4 px-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 py-4 gap-4 px-4 md:px-6">
         {products.map((product) => (
           <Link href="#" key={product.id} className="block overflow-hidden rounded-xl">
             <div className="relative overflow-hidden rounded-xl group">
@@ -30,7 +30,7 @@ export const Banner = () => {
                 alt="hero"
                 width={1200}
                 height={600}
-                className="transition-all duration-300 ease-in-out group-hover:blur-sm"
+                className="object-contain transition-all duration-300 ease-in-out group-hover:blur-sm"
               />
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <Button variant="outline" size="icon">

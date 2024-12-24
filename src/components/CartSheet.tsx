@@ -1,5 +1,6 @@
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetFooter,
   SheetHeader,
@@ -9,12 +10,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
 import { CartItemCard } from "@/components/ui/cart-item";
-import { ShoppingBag01Icon } from "hugeicons-react";
-import { CartItem } from "@/lib/types";
+import { Cancel01Icon, ShoppingBag01Icon } from "hugeicons-react";
+import { CartItemOrProduct } from "@/lib/types";
 import { calculateCartTotal } from "@/lib/utils/cart";
+import Link from "next/link";
 
 interface CartProps {
-  items: CartItem[];
+  items: CartItemOrProduct[];
 }
 
 export function CartSheet({ items }: CartProps) {
@@ -33,9 +35,15 @@ export function CartSheet({ items }: CartProps) {
           )}
         </button>
       </SheetTrigger>
-      <SheetContent className="flex flex-col">
-        <SheetHeader>
-          <SheetTitle>Shopping Cart</SheetTitle>
+      <SheetContent className="flex flex-col w-full">
+        <SheetHeader className="p-2">
+          <SheetTitle className="flex items-center justify-between">
+            Shopping Cart
+          </SheetTitle>
+          <SheetClose>
+            <Cancel01Icon className="size-6" />
+            <span className="text-sm text-neutral-500 sr-only">Fechar</span>
+          </SheetClose>
         </SheetHeader>
         <div className="flex-grow overflow-y-scroll scroll-m-0">
           {state.items.length === 0 ? (
@@ -43,9 +51,9 @@ export function CartSheet({ items }: CartProps) {
               <p className="text-center text-muted-foreground">
                 Seu carrinho está vazio
               </p>
-              <Button className="mt-2">
-                Ir para a loja
-              </Button>
+              <Link href="/shop">
+                <Button className="mt-2">Ir para a loja</Button>
+              </Link>
             </div>
           ) : (
             <div className="space-y-4">
@@ -72,4 +80,3 @@ export function CartSheet({ items }: CartProps) {
     </Sheet>
   );
 }
-

@@ -56,8 +56,8 @@ const testemunhos: Testemunho[] = [
 
 export function Testmonial() {
   return (
-    <div className="w-full container mx-auto py-12 px-8 flex flex-col gap-6">
-      <h2 className="text-3xl font-medium max-w-xs tracking-tighter py-12">Elas estão adorando nossos produtos</h2>
+    <div className="w-full container mx-auto py-12 px-4 md:px-6 flex flex-col gap-6">
+      <h2 className="text-3xl font-medium max-w-xs tracking-tighter md:py-12 py-6">Elas estão adorando nossos produtos</h2>
       <Carousel
         opts={{
           align: "start",
