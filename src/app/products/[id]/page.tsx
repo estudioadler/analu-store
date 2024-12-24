@@ -16,13 +16,16 @@ export async function generateStaticParams() {
   }));
 }
 
-interface ProductDetailPageProps {
-  params: { id: string };
-}
+type Props = {
+  params: {
+    id: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 export default async function ProductDetailPage({
   params,
-}: ProductDetailPageProps) {
+}: Props) {
   const { id } = params;
 
   const productData = await prisma.product.findUnique({
@@ -47,4 +50,3 @@ export default async function ProductDetailPage({
     </>
   );
 }
-
