@@ -23,6 +23,7 @@ export default function ProductDetailClient({
     const cartItem: CartItem = {
       ...product,
       quantity: selectedQuantity,
+      product: product,
     };
 
     dispatch({ type: "ADD_ITEM", payload: cartItem });
