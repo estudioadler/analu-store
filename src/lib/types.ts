@@ -40,6 +40,7 @@ export interface CartItem {
   price: number;
   description: string;
   rating: number;
+  product: Product
 }
 
 export interface CartItemProduct extends Product {
