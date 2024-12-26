@@ -5,11 +5,11 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import type { FilterParams } from '@/lib/types'
 
-interface ShopPageProps {
-  searchParams?: FilterParams
-}
-
-export default function ShopPage({ searchParams }: ShopPageProps) {
+export default async function ShopPage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) {
   return (
     <>
       <Header />
@@ -19,12 +19,11 @@ export default function ShopPage({ searchParams }: ShopPageProps) {
           <ShopHeader />
         </Suspense>
         <Suspense fallback={<div>Carregando...</div>}>
-          <ShopItems searchParams={searchParams} />
+          <ShopItems searchParams={searchParams as FilterParams} />
         </Suspense>
       </div>
       <Footer />
     </>
   )
 }
-
 
