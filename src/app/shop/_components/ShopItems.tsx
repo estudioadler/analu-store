@@ -4,7 +4,7 @@ import { parseFilterParams, filterProducts } from "../utils/filter-utils";
 import type { FilterParams, Product } from "@/lib/types";
 
 interface ShopItemsProps {
-  searchParams?: FilterParams;
+  searchParams: Promise<FilterParams>;
 }
 
 export async function ShopItems({ searchParams }: ShopItemsProps) {
@@ -35,7 +35,7 @@ export async function ShopItems({ searchParams }: ShopItemsProps) {
     price: Number(product.price),
   }));
 
-  const filteredItems = filterProducts(transformedProducts, filters) || [];
+  const filteredItems = filterProducts(transformedProducts, filters);
 
   return (
     <div>
@@ -47,3 +47,4 @@ export async function ShopItems({ searchParams }: ShopItemsProps) {
     </div>
   );
 }
+

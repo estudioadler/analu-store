@@ -1,11 +1,13 @@
-import { Suspense } from 'react'
+import { Suspense, use } from 'react'
 import { ShopItems } from './_components/ShopItems'
 import { ShopHeader } from './_components/ShopHeader'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import type { ShopPageProps } from './types'
 
+
 export default function ShopPage({ searchParams }: ShopPageProps) {
+  const params = use(searchParams)
   return (
     <>
       <Header />
