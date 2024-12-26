@@ -3,7 +3,7 @@ import { convertPrismaProduct } from "@/lib/types";
 
 export async function getProduct(slug: string) {
   const productData = await prisma.product.findUnique({
-    where: { slug }
+    where: { slug },
   });
 
   if (!productData) {
@@ -19,6 +19,6 @@ export async function generateStaticParams() {
   });
 
   return products.map((product) => ({
-    id: product.slug,
+    slug: product.slug,
   }));
 }

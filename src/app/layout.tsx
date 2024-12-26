@@ -7,6 +7,7 @@ import SessionWrapper from "@/components/SessionWrapper";
 import { CartProvider } from "@/context/CartContext";
 import { Toaster } from "@/components/ui/sonner"
 import AuthProvider from "@/providers/auth";
+import { Header } from "@/components/Header";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -41,6 +42,7 @@ export default function RootLayout({
         >
           <AuthProvider>
             <CartProvider>
+              <Header />
               {children}
             </CartProvider>
           </AuthProvider>
