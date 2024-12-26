@@ -13,12 +13,20 @@ export async function getProduct(slug: string) {
   return convertPrismaProduct(productData);
 }
 
-export async function generateStaticParams() {
+export async function getStaticPaths() {
   const products = await prisma.product.findMany({
-    select: { slug: true }
+    select: { slug: true },
   });
 
-  return products.map((product) => ({
-    slug: product.slug,
-  }));
+  return {
+    paths: products.map((product) => ({
+      params: { slug: product.slug },
+    })),
+    fallback: false,
+  };
+}
+
+export async function getStaticProps({ params }: { params: { slug: string } }) {
+  const product = await getProduct(params.slug);
+  return { props: { product } };
 }
