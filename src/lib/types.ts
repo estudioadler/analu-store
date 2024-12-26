@@ -45,6 +45,7 @@ export interface CartItem {
 
 export interface CartItemProduct extends Product {
   quantity: number;
+  product: Product;
 }
 export type FavoriteItem = {
   id: string;
