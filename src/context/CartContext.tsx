@@ -33,7 +33,8 @@ function cartReducer(state: CartState, action: CartAction): CartState {
         // New item, add to cart with quantity 1
         const newItem: CartItemProduct = {
           ...action.payload,
-          quantity: 1
+          quantity: 1,
+          product: action.payload
         };
         return { ...state, items: [...state.items, newItem] };
       }
