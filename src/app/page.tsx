@@ -7,7 +7,7 @@ import { SubscribeToast } from "@/components/SubscribeToast";
 import { Testmonial } from "@/components/Testmonial";
 
 
-export default async function Home() {
+export default function Home() {
 
   return (
     <>
