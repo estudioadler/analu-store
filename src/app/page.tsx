@@ -7,12 +7,10 @@ import SubscribeNews from "@/components/SubscribeNews";
 import { SubscribeToast } from "@/components/SubscribeToast";
 import { Testmonial } from "@/components/Testmonial";
 
-
 export default function Home() {
-
   return (
     <>
-     <Header />
+      <Header />
       <Hero />
       <Banner />
       <BestSellingProducts />
