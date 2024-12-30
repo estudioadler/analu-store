@@ -15,18 +15,18 @@ export async function getProduct(slug: string) {
 
 export async function getStaticPaths() {
   const products = await prisma.product.findMany({
-    select: { slug: true },
+    select: { id: true },
   });
 
   return {
     paths: products.map((product) => ({
-      params: { slug: product.slug },
+      params: { id: product.id.toString() },
     })),
     fallback: false,
   };
 }
 
-export async function getStaticProps({ params }: { params: { slug: string } }) {
-  const product = await getProduct(params.slug);
+export async function getStaticProps({ params }: { params: { id: string } }) {
+  const product = await getProduct(params.id);
   return { props: { product } };
 }
