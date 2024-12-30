@@ -24,13 +24,12 @@ export const Banner = () => {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 py-4 gap-4 px-4 md:px-6">
         {products.map((product) => (
           <Link href="#" key={product.id} className="block overflow-hidden rounded-xl">
-            <div className="relative overflow-hidden rounded-xl group">
+            <div className="relative overflow-hidden rounded-xl group w-full h-[576px]">
               <Image
                 src={product.image}
                 alt="hero"
-                width={1200}
-                height={600}
-                className="object-contain transition-all duration-300 ease-in-out group-hover:blur-sm"
+                fill
+                className="object-cover transition-all duration-300 ease-in-out group-hover:blur-sm"
               />
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <Button variant="outline" size="icon">

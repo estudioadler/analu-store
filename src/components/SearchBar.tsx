@@ -8,7 +8,7 @@ interface SearchBarProps {
 export const SearchBar = ({ on }: SearchBarProps & { on: () => void }) => {
   return (
     <>
-      <div className="z-10 absolute top-0 left-0 right-0 bg-white flex items-center justify-between gap-5 h-24 px-16">
+      <div className="z-10 absolute top-0 left-0 right-0 bg-white flex items-center justify-between gap-5 h-20 md:h-24 px-6 lg:px-16">
         <Search01Icon className="size-5" strokeWidth={1.5} />
         <input
           type="search"
