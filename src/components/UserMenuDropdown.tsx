@@ -11,6 +11,7 @@ import {
 import { Button } from "./ui/button";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 interface IUserMenuDropdownProps {
   userName: string;
@@ -42,10 +43,12 @@ export const UserMenuDropdown = ({
             Meu perfil
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            Meus Favoritos
-            <DropdownMenuShortcut>⌘F</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          <Link href="/favorites">
+            <DropdownMenuItem>
+              Meus Favoritos
+              <DropdownMenuShortcut>⌘F</DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
         <DropdownMenuItem onClick={logOut}>
           Sair

@@ -5,19 +5,30 @@ import { cn } from "@/lib/utils";
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
 import { Button } from "./ui/button";
 import { SearchBar } from "./SearchBar";
-import { Search01Icon, Menu01Icon, Cancel01Icon } from "hugeicons-react";
-import { forwardRef, useState } from "react";
-import { CartSheet } from "./CartSheet";
+import {
+  Search01Icon,
+  Menu01Icon,
+  Cancel01Icon,
+  ShoppingBag01Icon,
+} from "hugeicons-react";
+import { forwardRef, useContext, useState } from "react";
+import { Cart } from "./Cart";
 import { useSession } from "next-auth/react";
 import { UserMenuDropdown } from "./UserMenuDropdown";
 import { signOut } from "next-auth/react";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Separator } from "./ui/separator";
+import { cartContext } from "@/app/_context/cart";
 
 export function Header() {
+  const { products } = useContext(cartContext);
   const [openSearch, setOpenSearch] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session } = useSession();
@@ -80,17 +91,54 @@ export function Header() {
             <Search01Icon strokeWidth={1.5} className="size-5" />
           </button>
 
-          <CartSheet items={[]} />
+          <Sheet>
+            <SheetTrigger asChild>
+              <button className="relative">
+                <ShoppingBag01Icon strokeWidth={1.5} className="size-5" />
+                {products.length > 0 && (
+                  <span className="absolute -top-1.5 -right-1.5 size-4 rounded-full bg-primary text-primary-foreground text-[0.625rem] flex items-center justify-center">
+                    {products.length}
+                  </span>
+                )}
+              </button>
+            </SheetTrigger>
+            <SheetContent>
+              <Cart items={products} />
+              <SheetTitle />
+              <SheetDescription />
+            </SheetContent>
+          </Sheet>
           {openSearch && <SearchBar on={handleOpenSearch} />}
         </div>
       </div>
+
+
+
+
+
+
+
 
       {/* Mobile menu */}
       <div className="flex md:hidden items-center gap-4">
         <button onClick={handleOpenSearch}>
           <Search01Icon strokeWidth={1.5} className="size-5" />
         </button>
-        <CartSheet items={[]} />
+        <Sheet>
+          <SheetTrigger asChild>
+            <button className="relative">
+              <ShoppingBag01Icon strokeWidth={1.5} className="size-5" />
+              {products.length > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 size-4 rounded-full bg-primary text-primary-foreground text-[0.625rem] flex items-center justify-center">
+                  {products.length}
+                </span>
+              )}
+            </button>
+          </SheetTrigger>
+          <SheetContent>
+            <Cart items={products} />
+          </SheetContent>
+        </Sheet>
         <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
           <SheetTrigger asChild>
             <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -102,22 +150,62 @@ export function Header() {
             </button>
           </SheetTrigger>
           <SheetContent side="top" className="h-fit">
-            <div className="flex flex-col gap-2 mt-8">
+            <SheetHeader>
+              <SheetTitle />
+              <SheetDescription />
+            </SheetHeader>
+            <div className="flex flex-col gap-4 mt-4">
               {session ? (
                 <>
-                  <UserMenuDropdown
-                    userName={session.user?.email ?? ""}
-                    logOut={handleLogOut}
-                  />
+                  <div className="flex flex-col space-y-1 px-2">
+                    <span className="font-medium">{session.user?.name}</span>
+                    <span className="text-sm text-muted-foreground">
+                      {session.user?.email}
+                    </span>
+                  </div>
+                  <Separator />
+                  <nav className="flex flex-col">
+                    <Link href="/profile">
+                      <Button variant="ghost" className="w-full justify-start">
+                        Meu perfil
+                      </Button>
+                    </Link>
+                    <Link href="/favorites">
+                      <Button variant="ghost" className="w-full justify-start">
+                        Meus Favoritos
+                      </Button>
+                    </Link>
+                    <Link href="/shop">
+                      <Button variant="ghost" className="w-full justify-start">
+                        Shop
+                      </Button>
+                    </Link>
+                  </nav>
+                  <Separator />
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start text-red-500 hover:text-red-600 hover:bg-red-50"
+                    onClick={handleLogOut}
+                  >
+                    Sair
+                  </Button>
                 </>
               ) : (
                 <>
-                  <Link href={"/login"}>
+                  <Link href="/shop">
+                    <Button
+                      variant="secondary"
+                      className="w-full justify-center"
+                    >
+                      Ir para a loja
+                    </Button>
+                  </Link>
+                  <Link href="/login">
                     <Button variant="outline" className="w-full">
                       Fazer Login
                     </Button>
                   </Link>
-                  <Link href={"/signup"}>
+                  <Link href="/signup">
                     <Button variant="default" className="w-full">
                       Cadastre-se
                     </Button>
@@ -158,4 +246,3 @@ const ListItem = forwardRef<
   );
 });
 ListItem.displayName = "ListItem";
-

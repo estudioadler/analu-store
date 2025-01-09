@@ -29,6 +29,7 @@ export default function SubscribeNews() {
           height="550"
           src="/news.webp"
           width="550"
+          priority
         />
       </div>
     </section>

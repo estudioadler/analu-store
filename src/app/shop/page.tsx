@@ -11,9 +11,9 @@ export default function ShopPage({ searchParams }: ShopPageProps) {
   return (
     <>
       <Header />
-      <main className="container mx-auto px-6 py-8">
+      <main className="container mx-auto px-4 md:px-6 py-8">
         <h1 className="text-3xl font-bold mb-8">Todos os Produtos</h1>
-        <Suspense fallback={<div>Carregando cabeçalho...</div>}>
+        <Suspense fallback={<div>Carregando ...</div>}>
           <ShopHeader />
         </Suspense>
         <Suspense fallback={<div>Carregando...</div>}>
