@@ -4,7 +4,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
 import { Button } from "./ui/button";
-import { SearchBar } from "./SearchBar";
+import { SearchCommandBar } from "./SearchCommandBar";
 import {
   Search01Icon,
   Menu01Icon,
@@ -87,10 +87,7 @@ export function Header() {
 
         <div className="w-px h-8 bg-border mx-4 hidden md:block" />
         <div className="flex items-center gap-6">
-          <button onClick={handleOpenSearch}>
-            <Search01Icon strokeWidth={1.5} className="size-5" />
-          </button>
-
+          <SearchCommandBar />
           <Sheet>
             <SheetTrigger asChild>
               <button className="relative">
@@ -108,22 +105,12 @@ export function Header() {
               <SheetDescription />
             </SheetContent>
           </Sheet>
-          {openSearch && <SearchBar on={handleOpenSearch} />}
         </div>
       </div>
 
-
-
-
-
-
-
-
       {/* Mobile menu */}
       <div className="flex md:hidden items-center gap-4">
-        <button onClick={handleOpenSearch}>
-          <Search01Icon strokeWidth={1.5} className="size-5" />
-        </button>
+        <SearchCommandBar />
         <Sheet>
           <SheetTrigger asChild>
             <button className="relative">
@@ -215,7 +202,6 @@ export function Header() {
             </div>
           </SheetContent>
         </Sheet>
-        {openSearch && <SearchBar on={handleOpenSearch} />}
       </div>
     </header>
   );
