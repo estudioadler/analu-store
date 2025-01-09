@@ -9,9 +9,9 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { ProductCard } from "./ProductCard";
-import { Product } from "@/lib/types";
 import Autoplay from "embla-carousel-autoplay";
 import { shuffle } from "lodash"
+import { Product } from "@prisma/client";
 
 interface ProductCarouselProps {
   title?: string;
