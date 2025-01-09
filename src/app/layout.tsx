@@ -4,9 +4,10 @@ import { Manrope as FontSans } from "next/font/google";
 import localFont from "next/font/local";
 import { cn } from "@/lib/utils";
 import SessionWrapper from "@/components/SessionWrapper";
-import { CartProvider } from "@/context/CartContext";
 import { Toaster } from "@/components/ui/sonner"
 import AuthProvider from "@/providers/auth";
+import { CartProvider } from "./_context/cart";
+import { FavoritesProvider } from "./_context/favorites";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -41,7 +42,9 @@ export default function RootLayout({
         >
           <AuthProvider>
             <CartProvider>
+              <FavoritesProvider>
               {children}
+              </FavoritesProvider>
             </CartProvider>
           </AuthProvider>
           <Toaster />
