@@ -2,51 +2,45 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { useCart } from "@/context/CartContext";
-import { CartItemCard } from "@/components/ui/cart-item";
+import { CartItem } from "@/components/ui/cart-item";
 import { Cancel01Icon, ShoppingBag01Icon } from "hugeicons-react";
-import { CartItemOrProduct } from "@/lib/types";
-import { calculateCartTotal } from "@/lib/utils/cart";
+import { calculateCartTotal } from "@/lib/utils/cartCalculate";
 import Link from "next/link";
+import { cartContext } from "@/app/_context/cart";
+import { useContext } from "react";
+import { Product } from "@prisma/client";
 
 interface CartProps {
-  items: CartItemOrProduct[];
+  items: Product[];
+  open?: boolean;
+  onClose?: () => void;
 }
 
-export function CartSheet({ items }: CartProps) {
-  const { state } = useCart();
-  const total = calculateCartTotal(state.items);
+export function Cart({ items, open, onClose }: CartProps) {
+  const { products } = useContext(cartContext);
+  const cartTotal = calculateCartTotal(products);
 
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <button className="relative">
-          <ShoppingBag01Icon strokeWidth={1.5} className="size-5" />
-          {state.items.length > 0 && (
-            <span className="absolute -top-1.5 -right-1.5 size-4 rounded-full bg-primary text-primary-foreground text-[0.625rem] flex items-center justify-center">
-              {state.items.length}
-            </span>
-          )}
-        </button>
-      </SheetTrigger>
       <SheetContent className="flex flex-col w-full">
-        <SheetHeader className="p-2">
+        <SheetHeader className="p-2 flex flex-col items-start">
           <SheetTitle className="flex items-center justify-between">
-            Shopping Cart
+            Sua sacola.
           </SheetTitle>
-          <SheetClose>
-            <Cancel01Icon className="size-6" />
-            <span className="text-sm text-neutral-500 sr-only">Fechar</span>
-          </SheetClose>
+          <SheetDescription className="text-sm text-neutral-500">
+            <span className="text-xs text-neutral-500">
+              ({products.length} item(s))
+            </span>
+          </SheetDescription>
         </SheetHeader>
         <div className="flex-grow overflow-y-scroll scroll-m-0">
-          {state.items.length === 0 ? (
+          {products.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full">
               <p className="text-center text-muted-foreground">
                 Seu carrinho está vazio
@@ -57,18 +51,18 @@ export function CartSheet({ items }: CartProps) {
             </div>
           ) : (
             <div className="space-y-4">
-              {state.items.map((item) => (
-                <CartItemCard key={item.id} item={item} />
+              {products.map((item) => (
+                <CartItem key={item.id} cartProduct={item} />
               ))}
             </div>
           )}
         </div>
-        {state.items.length > 0 && (
+        {products.length > 0 && (
           <SheetFooter className="mt-auto pt-4">
             <div className="space-y-4 w-full">
               <div className="flex justify-between text-lg font-semibold">
                 <span>Total</span>
-                <span>${total.toFixed(2)}</span>
+                <span>${cartTotal.toFixed(2)}</span>
               </div>
               <Button className="w-full" size="lg">
                 Checkout
@@ -76,7 +70,10 @@ export function CartSheet({ items }: CartProps) {
             </div>
           </SheetFooter>
         )}
+        <SheetClose>
+          <Cancel01Icon className="absolute top-8 right-6 size-5" />
+          <span className="text-sm text-neutral-500 sr-only">Fechar</span>
+        </SheetClose>
       </SheetContent>
-    </Sheet>
   );
 }
