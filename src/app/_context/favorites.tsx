@@ -1,6 +1,6 @@
 "use client";
 
-import { Product } from "@prisma/client";
+import { Product } from "@/lib/types";
 import { createContext, useState } from "react";
 
 interface IFavoritesContext {

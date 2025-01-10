@@ -14,7 +14,7 @@ import { calculateCartTotal } from "@/lib/utils/cartCalculate";
 import Link from "next/link";
 import { cartContext } from "@/app/_context/cart";
 import { useContext } from "react";
-import { Product } from "@prisma/client";
+import { Product } from "@/lib/types";
 
 interface CartProps {
   items: Product[];

@@ -19,6 +19,7 @@ export default function ShopPage({ searchParams }: ShopPageProps) {
         <Suspense fallback={<div>Carregando...</div>}>
           <ShopItems searchParams={searchParams} />
         </Suspense>
+        
       </main>
       <Footer />
     </>

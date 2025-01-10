@@ -1,4 +1,4 @@
-import { Product } from "@prisma/client";
+import { Product } from "../types";
 
 export function calculateCartTotal(items: Product[]): number {
   return items.reduce((total, item) => {

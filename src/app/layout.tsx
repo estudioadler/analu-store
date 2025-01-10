@@ -47,7 +47,7 @@ export default function RootLayout({
               </FavoritesProvider>
             </CartProvider>
           </AuthProvider>
-          <Toaster />
+          <Toaster position="bottom-left" />
         </body>
       </html>
     </SessionWrapper>

@@ -11,7 +11,7 @@ import {
 import { ProductCard } from "./ProductCard";
 import Autoplay from "embla-carousel-autoplay";
 import { shuffle } from "lodash"
-import { Product } from "@prisma/client";
+import { Product } from "@/lib/types";
 
 interface ProductCarouselProps {
   title?: string;
@@ -23,6 +23,7 @@ export function ProductCarousel({ products, title }: ProductCarouselProps) {
     Autoplay({ delay: 3000, stopOnInteraction: true })
   );
   const shuffledProducts = React.useMemo(() => shuffle(products), [products]);
+  
   return (
     <section>
       <h2 className="text-3xl font-medium max-w-xs tracking-tighter py-12">
@@ -30,31 +31,30 @@ export function ProductCarousel({ products, title }: ProductCarouselProps) {
       </h2>
       <div>
         <Carousel
-        orientation="horizontal"
-        plugins={[plugin.current]}
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-        className="w-full mx-auto"
-      >
-        <CarouselContent>
-          {shuffledProducts.map((product) => (
-            <CarouselItem
-              key={product.id}
-              className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
-            >
-              <div className="p-1">
-                <ProductCard product={product} />
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-         <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
+          orientation="horizontal"
+          plugins={[plugin.current]}
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          className="w-full mx-auto"
+        >
+          <CarouselContent>
+            {shuffledProducts.map((product) => (
+              <CarouselItem
+                key={product.id}
+                className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+              >
+                <div className="p-1">
+                  <ProductCard product={product} />
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
       </div>
-      
     </section>
   );
 }

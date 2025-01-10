@@ -5,7 +5,6 @@ import Image from "next/image";
 import { Delete01Icon, MinusSignIcon, PlusSignIcon } from "hugeicons-react";
 import { useContext } from "react";
 import { cartContext } from "@/app/_context/cart";
-import { Product } from "@prisma/client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,6 +17,7 @@ import {
   AlertDialogTrigger,
 } from "./alert-dialog";
 import { toast } from "sonner";
+import { Product } from "@/lib/types";
 
 interface CartItemProps {
   cartProduct: Product;

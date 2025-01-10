@@ -1,5 +1,5 @@
 import { ProductCard } from "@/components/ProductCard"
-import { Product } from "@prisma/client"
+import { Product } from "@/lib/types"
 import { shuffle } from "lodash"
 import { useMemo } from "react"
 

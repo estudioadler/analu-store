@@ -10,8 +10,8 @@ import { cartContext } from "@/app/_context/cart";
 import { favoritesContext } from "@/app/_context/favorites"; // Novo import
 import { toast } from "sonner";
 import { Cart } from "./Cart";
-import { Product } from "@prisma/client";
 import { Sheet } from "./ui/sheet";
+import { Product } from "@/lib/types";
 
 interface ProductCardProps {
   product: Product;
@@ -21,6 +21,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const { products, addProduct } = useContext(cartContext);
   const { addToFavorites, removeFromFavorites, isFavorite } = useContext(favoritesContext);
   const [isCartOpen, setIsCartOpen] = useState(false);
+
 
   const handleAddProduct = () => {
     addProduct(product, 1);

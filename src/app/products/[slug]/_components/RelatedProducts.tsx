@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/prisma";
-import { convertPrismaProduct, Product } from "@/lib/types";
 import { ProductCarousel } from "@/components/ProductCarousel";
+import { prisma } from "@/lib/prisma";
+import { Product, convertPrismaProduct } from "@/lib/types";
 
 interface RelatedProductsProps {
   category: string;
@@ -19,9 +19,8 @@ export async function RelatedProducts({ category, currentProductId }: RelatedPro
   const relatedProducts: Product[] = relatedProductsRaw.map(convertPrismaProduct);
 
   return relatedProducts.length > 0 ? (
-    <div className="mt-12">
-      <ProductCarousel products={relatedProducts} />
+    <div className="px-4 md:px-6">
+      <ProductCarousel title="Produtos relacionados" products={relatedProducts} />
     </div>
   ) : null;
 }
-
