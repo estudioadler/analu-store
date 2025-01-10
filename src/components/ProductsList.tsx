@@ -1,6 +1,6 @@
 import React from 'react';
-import { Product } from "@prisma/client";
 import { ProductCard } from "./ProductCard";
+import { Product } from '@/lib/types';
 
 interface ProductsListProps {
   products: Product[];
