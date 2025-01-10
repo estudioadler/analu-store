@@ -1,5 +1,5 @@
 import React from 'react';
-import { Product } from "@/lib/types";
+import { Product } from "@prisma/client";
 import { ProductCard } from "./ProductCard";
 
 interface ProductsListProps {

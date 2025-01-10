@@ -6,7 +6,6 @@ import { NavigationMenuLink } from "@/components/ui/navigation-menu";
 import { Button } from "./ui/button";
 import { SearchCommandBar } from "./SearchCommandBar";
 import {
-  Search01Icon,
   Menu01Icon,
   Cancel01Icon,
   ShoppingBag01Icon,
