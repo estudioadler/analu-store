@@ -17,7 +17,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { InformationCircleIcon, ShoppingBag01Icon, StarIcon } from "hugeicons-react";
+import { HeartCheckIcon, InformationCircleIcon, ShoppingBag01Icon, StarIcon } from "hugeicons-react";
 
 export default function ProductDetailClient({ product }: { product: Product }) {
   const { products, addProduct } = useContext(cartContext);
@@ -27,6 +27,11 @@ export default function ProductDetailClient({ product }: { product: Product }) {
     addProduct(product, 1);
     setIsCartOpen(true);
     toast.success("Item adicionado ao carrinho!");
+  };
+
+  const handleAddToFavorites = () => {
+    // Implement your add to favorites logic here
+    toast.success("Item adicionado aos favoritos!");
   };
 
   return (
@@ -49,9 +54,9 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             </CardContent>
           </Card>
           <div className="space-y-6">
-            <div>
-              <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
+            <div className="space-y-2">
               <Badge variant="secondary">{product.category}</Badge>
+              <h1 className="text-3xl font-bold mb-2">{product.name}</h1>         
             </div>
             <p className="text-3xl font-semibold">R${product.price.toFixed(2)}</p>
             {product.size && (
@@ -60,55 +65,45 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                 <Badge variant="outline">{product.size}</Badge>
               </div>
             )}
-            <div className="flex items-center space-x-1">
-              {[...Array(5)].map((_, i) => (
-                <StarIcon
-                  key={i}
-                  className={`w-5 h-5 ${
-                    i < product.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
-                  }`}
-                />
-              ))}
-              <span className="ml-2 text-sm text-muted-foreground">
-                ({product.rating.toFixed(1)})
-              </span>
-            </div>
-            <Separator />
             <div>
               <h2 className="text-lg font-semibold mb-2">Descrição</h2>
               <p className="text-muted-foreground">{product.description}</p>
             </div>
-            <Button onClick={handleAddProduct} className="w-full" size="lg">
-              <ShoppingBag01Icon className="mr-2 h-5 w-5" />
-              Adicionar ao Carrinho
-            </Button>
-          </div>
-        </div>
-        <div className="mt-12">
-          <Card>
-            <CardHeader>
-              <CardTitle>Informações Adicionais</CardTitle>
-              <CardDescription>Detalhes sobre o produto</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="flex items-center space-x-2">
-                  <InformationCircleIcon className="h-5 w-5 text-muted-foreground" />
-                  <span>ID do Produto: {product.id}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <InformationCircleIcon className="h-5 w-5 text-muted-foreground" />
-                  <span>Categoria: {product.category}</span>
-                </div>
-                {product.quantity && (
+            <div className="space-y-4">
+              <Button onClick={handleAddProduct} className="w-full" size="lg">
+                <ShoppingBag01Icon className="mr-2 h-5 w-5" />
+                Adicionar ao Carrinho
+              </Button>
+              <Button onClick={handleAddToFavorites} className="w-full" size="lg" variant="outline">
+                <HeartCheckIcon className="mr-2 h-5 w-5" />
+                Adicionar aos Favoritos
+              </Button>
+            </div>
+            <Card>
+              <CardHeader>
+                <CardTitle>Informações Adicionais</CardTitle>
+                <CardDescription>Detalhes sobre o produto</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex items-center space-x-2">
                     <InformationCircleIcon className="h-5 w-5 text-muted-foreground" />
-                    <span>Quantidade em Estoque: {product.quantity}</span>
+                    <span>ID do Produto: {product.id}</span>
                   </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+                  <div className="flex items-center space-x-2">
+                    <InformationCircleIcon className="h-5 w-5 text-muted-foreground" />
+                    <span>Categoria: {product.category}</span>
+                  </div>
+                  {product.quantity && (
+                    <div className="flex items-center space-x-2">
+                      <InformationCircleIcon className="h-5 w-5 text-muted-foreground" />
+                      <span>Quantidade em Estoque: {product.quantity}</span>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
       <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>

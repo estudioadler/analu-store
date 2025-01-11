@@ -57,7 +57,6 @@ export function Header() {
         {session ? (
           <div className="-mr-4">
             <UserMenuDropdown
-              userName={session.user?.email ?? ""}
               logOut={handleLogOut}
             />
           </div>

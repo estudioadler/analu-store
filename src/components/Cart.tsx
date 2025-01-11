@@ -1,5 +1,4 @@
 import {
-  Sheet,
   SheetClose,
   SheetContent,
   SheetDescription,
@@ -69,8 +68,8 @@ export function Cart({ items, open, onClose }: CartProps) {
             </div>
           </SheetFooter>
         )}
-        <SheetClose>
-          <Cancel01Icon className="absolute top-8 right-6 size-5" />
+        <SheetClose className="absolute top-7 right-7">
+          <Cancel01Icon className="size-4" />
           <span className="text-sm text-neutral-500 sr-only">Fechar</span>
         </SheetClose>
       </SheetContent>

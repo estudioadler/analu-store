@@ -14,11 +14,9 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 interface IUserMenuDropdownProps {
-  userName: string;
   logOut: () => void;
 }
 export const UserMenuDropdown = ({
-  userName,
   logOut,
 }: IUserMenuDropdownProps) => {
   const { data: session } = useSession();
@@ -26,7 +24,7 @@ export const UserMenuDropdown = ({
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="">
         <Button variant="ghost" className="hover:bg-transparent">
-          {userName}
+          {session?.user.name}
           <ChevronDownIcon className="ml-2" />
         </Button>
       </DropdownMenuTrigger>
@@ -41,18 +39,15 @@ export const UserMenuDropdown = ({
         <DropdownMenuGroup>
           <DropdownMenuItem>
             Meu perfil
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
           <Link href="/favorites">
             <DropdownMenuItem>
               Meus Favoritos
-              <DropdownMenuShortcut>⌘F</DropdownMenuShortcut>
             </DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>
         <DropdownMenuItem onClick={logOut}>
           Sair
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
