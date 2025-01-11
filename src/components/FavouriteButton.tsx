@@ -1,7 +1,6 @@
 import { favoritesContext } from "@/app/_context/favorites";
 import { FavouriteIcon } from "hugeicons-react";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 

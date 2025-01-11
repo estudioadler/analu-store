@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { CartItem } from "@/components/ui/cart-item";
-import { Cancel01Icon, ShoppingBag01Icon } from "hugeicons-react";
+import { Cancel01Icon } from "hugeicons-react";
 import { calculateCartTotal } from "@/lib/utils/cartCalculate";
 import Link from "next/link";
 import { cartContext } from "@/app/_context/cart";

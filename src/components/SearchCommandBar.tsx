@@ -3,12 +3,10 @@
 import * as React from "react";
 import {
   CommandDialog,
-  CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-  CommandShortcut,
 } from "@/components/ui/command";
 import { Search01Icon } from "hugeicons-react";
 import { useRouter } from "next/navigation";
