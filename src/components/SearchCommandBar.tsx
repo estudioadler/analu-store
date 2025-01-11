@@ -47,7 +47,7 @@ export function SearchCommandBar() {
   return (
     <>
       <button onClick={() => setOpen((open) => !open)}>
-        <Search01Icon strokeWidth={1.5} className='size-5' />
+        <Search01Icon strokeWidth={1.5} className='size-5 text-muted-foreground hover:text-primary transition-colors' />
       </button> 
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput 

@@ -25,10 +25,10 @@ import {
 } from "@/components/ui/sheet";
 import { Separator } from "./ui/separator";
 import { cartContext } from "@/app/_context/cart";
+import FavouriteButton from "./FavouriteButton";
 
 export function Header() {
   const { products } = useContext(cartContext);
-  const [openSearch, setOpenSearch] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session } = useSession();
 
@@ -36,10 +36,6 @@ export function Header() {
     await signOut({
       callbackUrl: "/",
     });
-  };
-
-  const handleOpenSearch = () => {
-    setOpenSearch(!openSearch);
   };
 
   return (
@@ -71,14 +67,9 @@ export function Header() {
               <Button
                 variant={"ghost"}
                 size={"lg"}
-                className="hover:bg-transparent text-muted-foreground hover:text-foreground transition-colors"
+                className="px-0 hover:bg-transparent text-muted-foreground hover:text-foreground transition-colors"
               >
-                Login
-              </Button>
-            </Link>
-            <Link href={"/signup"}>
-              <Button variant={"default"} size={"lg"}>
-                Cadastre-se
+                Fazer Login
               </Button>
             </Link>
           </div>
@@ -87,12 +78,13 @@ export function Header() {
         <div className="w-px h-8 bg-border mx-4 hidden md:block" />
         <div className="flex items-center gap-6">
           <SearchCommandBar />
+          <FavouriteButton />
           <Sheet>
             <SheetTrigger asChild>
               <button className="relative">
-                <ShoppingBag01Icon strokeWidth={1.5} className="size-5" />
+                <ShoppingBag01Icon strokeWidth={1.5} className="size-5 text-muted-foreground hover:text-primary transition-colors" />
                 {products.length > 0 && (
-                  <span className="absolute -top-1.5 -right-1.5 size-4 rounded-full bg-primary text-primary-foreground text-[0.625rem] flex items-center justify-center">
+                  <span className="absolute -top-2 -right-2 size-4 rounded-full bg-primary text-primary-foreground text-[0.625rem] flex items-center justify-center">
                     {products.length}
                   </span>
                 )}
@@ -110,12 +102,13 @@ export function Header() {
       {/* Mobile menu */}
       <div className="flex md:hidden items-center gap-4">
         <SearchCommandBar />
+        <FavouriteButton />
         <Sheet>
           <SheetTrigger asChild>
             <button className="relative">
-              <ShoppingBag01Icon strokeWidth={1.5} className="size-5" />
+              <ShoppingBag01Icon strokeWidth={1.5} className="size-5 text-muted-foreground hover:text-primary transition-colors" />
               {products.length > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 size-4 rounded-full bg-primary text-primary-foreground text-[0.625rem] flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 size-4 rounded-full bg-primary text-primary-foreground text-[0.625rem] flex items-center justify-center">
                   {products.length}
                 </span>
               )}
@@ -129,9 +122,9 @@ export function Header() {
           <SheetTrigger asChild>
             <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
               {isMenuOpen ? (
-                <Cancel01Icon strokeWidth={1.5} className="size-6" />
+                <Cancel01Icon strokeWidth={1.5} className="size-6 text-muted-foreground hover:text-primary transition-colors" />
               ) : (
-                <Menu01Icon strokeWidth={1.5} className="size-6" />
+                <Menu01Icon strokeWidth={1.5} className="size-6 text-muted-foreground hover:text-primary transition-colors" />
               )}
             </button>
           </SheetTrigger>
