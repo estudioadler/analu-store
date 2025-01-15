@@ -1,4 +1,5 @@
 import { Banner } from "@/components/Banner";
+import { BestSellersProducts } from "@/components/BestSellersProducts";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
@@ -12,6 +13,7 @@ export default function Home() {
       <Header />
       <Hero />
       <Banner />
+      <BestSellersProducts category="todos" currentProductId="" />
       <Testmonial />
       <SubscribeNews />
       <SubscribeToast />

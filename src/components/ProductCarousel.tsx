@@ -20,7 +20,7 @@ interface ProductCarouselProps {
 
 export function ProductCarousel({ products, title }: ProductCarouselProps) {
   const plugin = React.useRef(
-    Autoplay({ delay: 3000, stopOnInteraction: true })
+    Autoplay({ delay: 4000, stopOnInteraction: true })
   );
   const shuffledProducts = React.useMemo(() => shuffle(products), [products]);
   

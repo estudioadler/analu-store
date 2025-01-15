@@ -33,11 +33,6 @@ export const Banner = () => {
                 priority
                 className="object-cover transition-all duration-300 ease-in-out group-hover:blur-sm"
               />
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <Button variant="outline" size="icon">
-                  <ArrowUpRight01Icon className="h-6 w-6" />
-                </Button>
-              </div>
             </div>
           </Link>
         ))}

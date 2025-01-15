@@ -36,9 +36,6 @@ export const UserMenuDropdown = ({
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            Meu perfil
-          </DropdownMenuItem>
           <Link href="/favorites">
             <DropdownMenuItem>
               Meus Favoritos

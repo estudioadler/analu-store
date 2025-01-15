@@ -35,7 +35,7 @@ export function ShopHeader() {
   }
 
   return (
-    <div className="mb-6">
+    <div className="mb-6 ">
       <FilterSheet
         isOpen={isOpen}
         filters={filters}

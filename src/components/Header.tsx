@@ -143,11 +143,6 @@ export function Header() {
                   </div>
                   <Separator />
                   <nav className="flex flex-col">
-                    <Link href="/profile">
-                      <Button variant="ghost" className="w-full justify-start">
-                        Meu perfil
-                      </Button>
-                    </Link>
                     <Link href="/favorites">
                       <Button variant="ghost" className="w-full justify-start">
                         Meus Favoritos

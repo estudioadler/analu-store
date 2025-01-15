@@ -5,7 +5,6 @@ import { FilterState } from "@/lib/types"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { Slider } from "@/components/ui/slider"
 import {
   Select,
   SelectContent,
@@ -40,14 +39,14 @@ export function FilterSheet({
         </Button>
       </SheetTrigger>
       <SheetContent side="left">
-        <SheetHeader>
+        <SheetHeader className="flex flex-col items-start">
           <SheetTitle>Filtrar Produtos</SheetTitle>
           <SheetDescription>
             Ajuste os filtros para encontrar o produto perfeito para você.
           </SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="flex flex-col items-start gap-4">
             <Label htmlFor="name" className="text-right">
               Nome
             </Label>
@@ -58,7 +57,7 @@ export function FilterSheet({
               className="col-span-3"
             />
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="flex flex-col items-start gap-4">
             <Label htmlFor="category" className="text-right">
               Categoria
             </Label>
@@ -81,29 +80,41 @@ export function FilterSheet({
               </SelectContent>
             </Select>
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="price" className="text-right">
+          <div className="flex flex-col items-start gap-4">
+            <Label className="text-right">
               Faixa de Preço
             </Label>
-            <div className="col-span-3">
-              <Slider
-                min={0}
-                max={1000}
-                step={10}
-                value={[filters.minPrice, filters.maxPrice]}
-                onValueChange={(value) => {
-                  onFilterChange("minPrice", value[0])
-                  onFilterChange("maxPrice", value[1])
-                }}
-              />
-              <div className="flex justify-between mt-2">
-                <span>R${filters.minPrice}</span>
-                <span>R${filters.maxPrice}</span>
+            <div className="grid grid-cols-2 gap-4 w-full">
+              <div>
+                <Label htmlFor="minPrice" className="text-xs">
+                  Mínimo
+                </Label>
+                <Input
+                  id="minPrice"
+                  type="number"
+                  min={0}
+                  value={filters.minPrice}
+                  onChange={(e) => onFilterChange("minPrice", Number(e.target.value))}
+                  className="mt-1"
+                />
+              </div>
+              <div>
+                <Label htmlFor="maxPrice" className="text-xs">
+                  Máximo
+                </Label>
+                <Input
+                  id="maxPrice"
+                  type="number"
+                  min={0}
+                  value={filters.maxPrice}
+                  onChange={(e) => onFilterChange("maxPrice", Number(e.target.value))}
+                  className="mt-1"
+                />
               </div>
             </div>
           </div>
         </div>
-        <Button onClick={onApplyFilters}>Aplicar Filtros</Button>
+        <Button onClick={onApplyFilters} className="w-full">Aplicar Filtros</Button>
       </SheetContent>
     </Sheet>
   )
